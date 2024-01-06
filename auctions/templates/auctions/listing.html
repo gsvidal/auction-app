@@ -126,7 +126,13 @@
                 {% endif %}
                 </span>
               </li>
-              <li>Category: <a href="{% url 'by_categories' listing.category.id %}" class="category category--{{listing.category.name}}">{{listing.category.name}}</a></li>
+              <li>Category: 
+                {% if user.is_authenticated %}
+                <a href="{% url 'by_categories' listing.category.id %}" class="category category--{{listing.category.name}}">{{listing.category.name}}</a>
+                {% else %}
+                <span class="category category--{{ listing.category.name }}">{{ listing.category.name }}</span>
+                {% endif %}
+              </li>
             </ul>
           </div>
         </div>

@@ -29,12 +29,29 @@ body {
   margin-bottom: 20px;
 }
 
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 500% 500%;
+  }
+}
+
 .title {
   font-size: 6rem;
-  background: linear-gradient(to right, rgb(222, 205, 255), rgb(0, 230, 150));
+  font-weight: bold;
+  background: linear-gradient(
+    90deg,
+    rgb(222, 205, 255),
+    rgb(0, 230, 150),
+    rgb(222, 205, 255)
+  );
+  background-size: 500% 500%;
+  color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  animation: gradientMove 15s linear infinite;
 }
 
 .nav {
@@ -323,7 +340,8 @@ ul {
   width: 15px;
   height: 15px;
   margin-right: 4px;
-  background: url("https://raw.githubusercontent.com/gsvidal/auction-assets2/main/icons3/refresh.svg") center/cover no-repeat;
+  background: url("https://raw.githubusercontent.com/gsvidal/auction-assets2/main/icons3/refresh.svg")
+    center/cover no-repeat;
 }
 
 a:hover {
@@ -533,7 +551,8 @@ a:hover {
   display: inline-block;
   width: 12px;
   height: 12px;
-  background: url("https://raw.githubusercontent.com/gsvidal/auction-assets2/main/icons3/clock.svg") center/cover no-repeat;
+  background: url("https://raw.githubusercontent.com/gsvidal/auction-assets2/main/icons3/clock.svg")
+    center/cover no-repeat;
   filter: invert(72%) sepia(0%) saturate(0%) hue-rotate(227deg) brightness(93%)
     contrast(93%);
 }
