@@ -10,7 +10,10 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="{% static 'auctions/styles.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://auction-app-nr4r.onrender.com/static/auctions/styles.css"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
@@ -18,8 +21,8 @@
       <h1 class="title">Auctions</h1>
       <div>
         {% if user.is_authenticated %} Signed in as
-        <strong>{{ user.username }}</strong>. {% else %} Not signed in. 
-        {% endif %}
+        <strong>{{ user.username }}</strong>. {% else %} Not signed in. {% endif
+        %}
       </div>
     </div>
     <ul class="nav">
