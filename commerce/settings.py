@@ -22,10 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 
-# Development
-# SECURITY WARNING: keep the secret key used in production secret!
+# Production
 SECRET_KEY = os.environ.get("SECRET_KEY")
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
@@ -40,7 +38,22 @@ DATABASES = {
 database_url = os.environ.get("DATABASE_URL")
 DATABASES["default"] = dj_database_url.parse(database_url)
 
-# Production
+# Development
+# SECRET_KEY = "fsddsfdfs"
+# DEBUG = True
+
+# ALLOWED_HOSTS = []
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+# database_url = "postgres://auction_db_768g_user:ATvdAGDzJDQXoenvEA11h18pmKOAzniQ@dpg-cmc9upgl5elc739f17a0-a.oregon-postgres.render.com/auction_db_768g"
+# DATABASES["default"] = dj_database_url.parse(database_url)
+
 
 # Application definition
 
@@ -132,3 +145,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    # Additional locations of static files
+    os.path.join(BASE_DIR, "static"),
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
