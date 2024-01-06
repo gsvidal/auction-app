@@ -1,0 +1,53 @@
+{% extends "auctions/layout.html" %} 
+
+{% block title %}{{title}}{% endblock %} 
+
+{% block body %}
+
+<h2>{{title}}</h2>
+<ul>
+    {% for listing in listings %}
+    <li class="listing-item">
+      <a
+        class="listing__item {% if listing.is_newly_created %}just-created{% endif %}{% if not listing.is_active %}closed{% endif %}"
+        href="{% url 'listings' listing.id %}"
+      >
+        {% if not listing.is_active %}
+        <div class="listing-closed-bg"></div>
+        {% endif %} {% if listing.is_newly_created %}
+        <span class="new-toast">New!</span>
+        {% endif %}
+        <img
+          class="listing__img"
+          src="{{ listing.image_url }}"
+          alt="{{ listing.name }}"
+          width="200"
+        />
+        <div class="listing-chips">
+          {% if listing.has_user_won %}
+            <p class="badge badge--is-winner">You won</p>
+          {% endif %}
+          {% if not listing.is_active %}
+            <p class="badge badge--is-closed">Closed</p>
+          {% endif %} 
+          {% if listing.was_listed_by_user %}
+            <p class="badge badge--user-listing">Seller: {{user.username}}</p>
+          {% endif %} 
+          {% if listing.is_in_watchlist %}
+            <p class="badge badge--watchlist">Watchlist</p>
+          {% endif %}
+        </div>
+
+        <div class="listing__info">
+          <h3 class="listing__title">{{listing.name}}</h3>
+          <p class="listing__price">Price: ${{listing.bid|floatformat:2}}</p>
+          <p class="listing__description">
+            {{listing.description|slice:":170"}} {% if listing.description|length >= 170 %} ... {% endif %}
+          </p>
+          <p class="listing__date">Created {{listing.listing_date}}</p>
+        </div>
+      </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

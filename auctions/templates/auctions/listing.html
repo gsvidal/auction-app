@@ -1,0 +1,176 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}Listing: {{listing.name}}{% endblock %}
+
+{% block body %}
+    {% if has_user_won %}
+      <h1 class="message message--winner">You are the winner of this listing bid!. Contact us at: 1234-567-89</h1>
+    {% endif %}
+    <section class="listing-section">
+      <div class="listing-info">
+        <div class="listing-info__main">
+          <h2>Listing: {{listing.name}}</h2>
+          <div class="chips"> 
+            {% if listing_in_user_watchlist %}
+              <p class="badge badge--watchlist">Watchlist</p>
+            {% endif %}
+            {% if is_seller_current_user %}
+              <p class="badge badge--user-listing">
+                Seller: {{user.username}}</p>
+            {% endif %}
+            {% if not listing.is_active %}
+              <p class="badge badge--is-closed">Closed</p>
+            {% endif %}
+          </div>
+          <img class="listing-item__img" src="{{ listing.image_url }}" alt="{{ listing.name }}" width="300">        
+        </div>
+        <div class="listing-info__secondary">
+          <p class="listing-item__description">{{listing.description}}</p>
+          <p class="listing-item__price">${{listing.bid|floatformat:2}}</p>
+          <a href="{% url 'listings' listing.id %}">
+            <button class="btn get-bids">
+              <span class="refresh-icon"></span>
+              Latest bid
+            </button>
+          </a>
+
+          {% if user.is_authenticated %}
+            <div class="form-group">
+              <form action="{% if listing.is_active %}{% url 'bid' listing.id %}{% endif %}" method="post">
+                {% csrf_token %}
+                <p class="label">{{bids_length}} bid(s) so far.
+                  {% if is_user_current_bid %}
+                    <span class="current_bid-msg">Your bid is the current bid.</span>
+                  {% endif %}
+                </p>
+                {% if listing.is_active %}
+                  <input class="form-control" type="number" name="input_bid" id="input_bid" placeholder="Bid" >
+                {% else %}
+                  <input class="form-control" type="number" name="input_bid" id="input_bid" placeholder="Bid" disabled>
+                {% endif %}
+                {% if messages %}
+                  {% for message in messages %}
+                    {% if 'info' not in message.tags and 'warning' not in message.tags %}
+                      <p class="message message--{{ message.tags }}">{{ message }}</p>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                {% if listing.is_active %}
+                  <input class="btn bid" type="submit" value="Place Bid">
+                {% else %}
+                  <input class="btn bid disabled" type="button" value="Place Bid">
+                {% endif %}
+              </form>
+            </div>
+
+            {% if listing_in_user_watchlist %}
+              <a href="{% url 'remove_from_watchlist' listing.id %}">
+                <button class="btn watchlist remove">
+                  Remove from Watchlist
+                </button>
+              </a>
+            {% else %}
+              <a href="{% url 'add_to_watchlist' listing.id %}">
+                <button class="btn watchlist add">
+                  Add to Watchlist
+                </button>
+              </a>
+            {% endif %}
+
+            {% if is_seller_current_user %}
+              {% if listing.is_active %}
+              <a href="{% url 'close_listing' listing.id %}">
+                <button class="btn close-listing">
+                  Close Listing
+                </button>
+              </a>
+              {% else %}
+                <button class="btn close-listing disabled">
+                  Listing Closed
+                </button>
+                {% if messages %}
+                  {% for message in messages %}
+                    {% if 'info' in message.tags %}
+                      <p class="message message--{{ message.tags }}">{{ message }}</p>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              {% endif %}
+              <button class="btn close-listing delete-listing">
+                Delete listing
+              </button>
+              <div class="confirm-delete-modal">
+                <div class="confirm-buttons">
+                  <p>Are you sure to delete this listing?</p>
+                  <p>You'll loose this listing data</p>
+                  <div class="confirm-buttons-container">
+                    <a href="{% url 'delete_listing' listing.id %}">
+                      <button class="btn close-listing modal-yes">Yes, delete</button>
+                    </a>
+                    <button class="btn modal-cancel">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+          {% endif %}
+          
+          <div class="details-container">
+            <h3 class="listing-item__details">Details</h3>
+            <ul class="listing-item__details-list">
+              <li>Listed by: 
+                <span class="listing__seller">{% if user.is_authenticated %}
+                  <a class="nav-link username" href="{% url 'seller' listing.seller.id %}">{{listing.seller.username}}</a>
+                {% else %}
+                  {{listing.seller.username}}
+                {% endif %}
+                </span>
+              </li>
+              <li>Category: <a href="{% url 'by_categories' listing.category.id %}" class="category category--{{listing.category.name}}">{{listing.category.name}}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <h3>Comments:</h3>
+      {% if user.is_authenticated %}
+        <form class="form-comments" action="{% url 'listings' listing.id %}" method="post">
+          {% csrf_token %}
+          <div class="form-group user-comment-input">
+            <input class="form-control" name="user-comment" id="user-comment" placeholder="Leave your comment...">
+            <input type="hidden" name="user_id" value="{{user.id}}">
+          </div>
+          {% if messages %}
+            {% for message in messages %}
+              {% if 'warning' in message.tags %}
+                <p class="message message--{{ message.tags }}">{{ message }}</p>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          <input class="btn comment" type="submit" value="Save Comment" >
+        </form>
+      {% endif %}
+
+      <div class="comments-container">
+        {% if comments_length > 0 %}
+        <ul class="comments-list">
+          {% for comment in comments %}
+            <div class="comment-item">
+              <p class="comment-author">{{comment.author.username}}</p>
+              <p class="comment-date"> <span class="comment-date-icon"></span>{{comment.date|timesince}} ago</p>
+              <li class="comment-text">{{comment.text}}</li>
+            </div>
+          {% endfor %}
+        </ul>
+
+        {% else %}
+          <p class="credentials-redirect">There're not any comments yet. 
+            {% if not user.is_authenticated %}
+              <a class="nav-link credentials" href="{% url 'login' %}">Log In</a> to comment. 
+            {% endif %}
+          </p>
+        {% endif %}
+      </div>
+    </section>
+    <script src="../../static/index.js"></script>
+{% endblock %}
