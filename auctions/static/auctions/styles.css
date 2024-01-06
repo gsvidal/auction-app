@@ -17,7 +17,8 @@ body {
   height: 100%;
   margin: 0 auto;
   font-size: 1.4rem;
-  background: url("../icons/bg-animated.svg") center/cover no-repeat;
+  background: url("https://raw.githubusercontent.com/gsvidal/auction-assets2/main/icons3/bg-animated.svg")
+    center/cover no-repeat;
 }
 
 .title-container {
@@ -322,7 +323,7 @@ ul {
   width: 15px;
   height: 15px;
   margin-right: 4px;
-  background: url("../icons/refresh.svg") center/cover no-repeat;
+  background: url("https://raw.githubusercontent.com/gsvidal/auction-assets2/main/icons3/refresh.svg") center/cover no-repeat;
 }
 
 a:hover {
@@ -532,7 +533,7 @@ a:hover {
   display: inline-block;
   width: 12px;
   height: 12px;
-  background: url("../icons/clock.svg") center/cover no-repeat;
+  background: url("https://raw.githubusercontent.com/gsvidal/auction-assets2/main/icons3/clock.svg") center/cover no-repeat;
   filter: invert(72%) sepia(0%) saturate(0%) hue-rotate(227deg) brightness(93%)
     contrast(93%);
 }

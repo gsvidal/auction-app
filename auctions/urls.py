@@ -30,4 +30,4 @@ urlpatterns = [
     path(
         "delete_listing/<int:listing_id>", views.delete_listing, name="delete_listing"
     ),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
