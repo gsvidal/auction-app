@@ -36,3 +36,8 @@ INSERT INTO auctions_category (name) VALUES
 ('Sports'),
 ('Games'),
 ('No Category');
+
+INSERT INTO auctions_category (name) VALUES
+('Home'),
+('Vehicles'),
+('Art');
