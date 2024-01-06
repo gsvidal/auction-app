@@ -1,3 +1,12 @@
+# Script to run back development server
+
+cd .venv/
+source ./Scripts/activate && cd ..
+python manage.py runserver
+
+
+# Create product categories (sql)
+
 from auctions.models import AuctionListing, User, Category
 
 art = Category(name="Art")
