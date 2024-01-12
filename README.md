@@ -11,7 +11,7 @@ Welcome to the **Auctions Django App**! This web application allows users to cre
 ## Table of Contents
 
 - [Demo](#demo)
-- [Introduction](#introduction)
+- [Technologies](#technologies)
 - [Features](#features)
 - [Installation](#installation)
 
@@ -61,7 +61,7 @@ Listings can be categorized, and users can browse listings by category.
 
 When a listing is closed, the winner is notified.
 
-## Instalation
+## Installation
 ### Clone the Repository:
 `git clone git@github.com:gsvidal/auction-app.git`
 
