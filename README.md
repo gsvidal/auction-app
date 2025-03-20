@@ -15,8 +15,8 @@ Welcome to the **Auctions Django App**! This web application allows users to cre
 - [Features](#features)
 - [Installation](#installation)
 
-## Demo
-[Live Demo](https://auction-app-nr4r.onrender.com/)
+## 🚀 Live Demo (Currently Unavailable)
+⚠️ Note: The live demo is currently offline as the database instance is not running to reduce hosting costs. However, you can still explore the full source code and set it up locally.
 
 ## Technologies
 <img src="https://raw.githubusercontent.com/devicons/devicon/55609aa5bd817ff167afce0d965585c92040787a/icons/html5/html5-original-wordmark.svg" alt="html5 Logo" width="50" height="50"/><img src="https://raw.githubusercontent.com/devicons/devicon/55609aa5bd817ff167afce0d965585c92040787a/icons/css3/css3-original-wordmark.svg" alt="css3 Logo" width="50" height="50"/>
